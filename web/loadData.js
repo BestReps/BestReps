@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     fetch("data.json")
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             const container = document.getElementById("fashion-container");
             data.forEach(item => {
