@@ -1,16 +1,12 @@
+import re
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Path to your JSON credentials file
-SERVICE_ACCOUNT_FILE = "service_account.json"
-
-# Define the scope
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-
 # Authenticate using the service account
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+SERVICE_ACCOUNT_FILE = r"C:\Users\roans\Desktop\BestReps\web\service_account.json"
 
-# Connect to Google Sheets
+creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 client = gspread.authorize(creds)
 
 # Open the Google Sheet by ID
@@ -23,6 +19,15 @@ worksheet = sheet.get_worksheet(0)
 # Get all values
 data = worksheet.get_all_values()
 
-# Print data
+# Function to extract the actual URL from a hyperlink formula
+def extract_url(cell_value):
+    match = re.search(r'HYPERLINK\("([^"]+)"', cell_value)
+    return match.group(1) if match else cell_value
+
+# Print data with actual links
 for row in data:
-    print(row)
+    name, link_text, price_yen, price_usd = row
+    cell = worksheet.find(link_text)  # Locate the cell containing the link text
+    formula = worksheet.cell(cell.row, cell.col, value_render_option='FORMULA').value  # Get formula
+    link = extract_url(formula)  # Extract actual URL from formula
+    print([name, link, price_yen, price_usd])
