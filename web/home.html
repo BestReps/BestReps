@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="homepage.js" defer></script>
     <script src="popup.js" defer></script>
+    <script src="loadData.js" defer></script> <!-- Add script to load data -->
     <link rel="icon" type="image/x-icon" href="/web/pictures/image.png">
 </head>
 <body>
@@ -23,25 +24,8 @@
     </nav>
 
     <!-- Fashion Container -->
-    <section class="fashion-container"> 
-        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
-            <img src="/web/pictures/image.png" alt="Fashion Item">
-        </div>
-        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
-            <img src="/web/pictures/image.png" alt="Fashion Item">
-        </div>
-        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
-            <img src="/web/pictures/image.png" alt="Fashion Item">
-        </div>
-        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
-            <img src="/web/pictures/image.png" alt="Fashion Item">
-        </div>
-        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
-            <img src="/web/pictures/image.png" alt="Fashion Item">
-        </div>
-        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
-            <img src="/web/pictures/image.png" alt="Fashion Item">
-        </div>
+    <section class="fashion-container" id="fashion-container">
+        <!-- Items will be loaded here by loadData.js -->
     </section>
     
 

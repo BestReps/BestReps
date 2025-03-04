@@ -1,5 +1,6 @@
 import re
 import gspread
+import json
 from google.oauth2.service_account import Credentials
 
 # Authenticate using the service account
@@ -24,10 +25,15 @@ def extract_url(cell_value):
     match = re.search(r'HYPERLINK\("([^"]+)"', cell_value)
     return match.group(1) if match else cell_value
 
-# Print data with actual links
+# Collect data with actual links
+output_data = []
 for row in data:
     name, link_text, price_yen, price_usd = row
     cell = worksheet.find(link_text)  # Locate the cell containing the link text
     formula = worksheet.cell(cell.row, cell.col, value_render_option='FORMULA').value  # Get formula
     link = extract_url(formula)  # Extract actual URL from formula
-    print([name, link, price_yen, price_usd])
+    output_data.append([name, link, price_yen, price_usd])
+
+# Save data to JSON file
+with open(r"C:\Users\roans\Desktop\BestReps\web\data.json", "w") as json_file:
+    json.dump(output_data, json_file)
