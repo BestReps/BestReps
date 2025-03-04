@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestReps</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="homepage.js" defer></script>
+    <script src="popup.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="/web/pictures/image.png">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="/web/pictures/image.png" alt="Logo"> BestReps
+        </a>
+        <ul class="nav-links">
+            <li><a href="uitlegpagina.html">What</a></li>
+            <li><a href="grafiekpagina.html">Why</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fashion Container -->
+    <section class="fashion-container"> 
+        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
+            <img src="/web/pictures/image.png" alt="Fashion Item">
+        </div>
+        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
+            <img src="/web/pictures/image.png" alt="Fashion Item">
+        </div>
+        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
+            <img src="/web/pictures/image.png" alt="Fashion Item">
+        </div>
+        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
+            <img src="/web/pictures/image.png" alt="Fashion Item">
+        </div>
+        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
+            <img src="/web/pictures/image.png" alt="Fashion Item">
+        </div>
+        <div class="fashion-item" onclick="openModal('/web/pictures/image.png')">
+            <img src="/web/pictures/image.png" alt="Fashion Item">
+        </div>
+    </section>
+    
+
+    <!-- Pop-up -->
+    <div id="popupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <iframe id="popupFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+</body>
+</html>
