@@ -26,5 +26,3 @@ python run_steal.py
 
 
 
-bestrepsmain@gmail.com
-potjepindakaas23
