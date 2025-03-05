@@ -43,34 +43,12 @@ except Exception as e:
 
 # Collect data with actual links (ensure that columns exist)
 output_data = []
-for row_idx, row in enumerate(data, start=6):  # Start from row 6 to match your sheet index
-    print(f"Processing row {row_idx}: {row}")  # Debug: Show the content of the row being processed
-
-    # Check if the row has at least 2 columns (for Link Text and Name)
-    if len(row) < 2:
-        print(f"Row {row_idx} has fewer than 2 columns. Skipping.")  # Debug: Row has insufficient columns
+for row in data:
+    if len(row) < 10:
         continue  # Skip rows that don't have enough columns
-    
-    name = row[0]       # Column A: Name
-    price_usd = row[2]  # Column C: Price (USD)
-    link_text = row[1]  # Column B: Link Text ("LINK")
+    name, price_usd, link_text = row[0], row[3], row[9]  # Adjust to get link_text from column J
 
-    # Get the cell in Column B (Link Text) for extracting the link
-    cell = worksheet.cell(row_idx, 2)  # Column B is the 2nd column (1-indexed)
-    print(f"Extracting link for cell at row {row_idx}, column 2...")  # Debug: Extracting link
-    
-    # Attempt to get the hyperlink using the cell's hyperlink method
-    try:
-        link_url = cell.hyperlink  # Directly get the hyperlink URL
-        if not link_url:
-            link_url = "No Link"
-        print(f"Link extracted: {link_url}")  # Debug: Show the extracted link
-    except Exception as e:
-        print(f"Error extracting hyperlink from cell: {e}")
-        link_url = "No Link"
-
-    # Append the data to the output list
-    output_data.append([name, link_url, price_usd])
+    output_data.append([name, link_text, price_usd])
 
 # Save the data to a JSON file
 output_path = os.path.join(home_dir, "Desktop", "BestReps", "web", "data.json")
