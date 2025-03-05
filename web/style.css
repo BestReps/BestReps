@@ -71,6 +71,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    color: black; /* Make text black for better readability */
 }
 
 .fashion-item img {
@@ -84,6 +85,11 @@ body {
     margin-top: 10px;
     font-size: 16px;
     font-weight: 600;
+}
+
+.fashion-item a {
+    color: black; /* Make link text black for better readability */
+    text-decoration: none;
 }
 
 .fashion-item:hover {
