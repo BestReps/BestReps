@@ -9,14 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             const container = document.getElementById("fashion-container");
             data.forEach(item => {
-                const [name, link, price_yen, price_usd] = item;
+                const { name, price, link } = item;
                 const div = document.createElement("div");
                 div.className = "fashion-item";
                 div.innerHTML = `
                     <p>${name}</p>
                     <a href="${link}" target="_blank">${link}</a>
-                    <p>${price_yen}</p>
-                    <p>${price_usd}</p>
+                    <p>${price}</p>
                 `;
                 container.appendChild(div);
             });
