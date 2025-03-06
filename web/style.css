@@ -3,10 +3,11 @@ body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom right, #4b0082, #ff1493) no-repeat; /* Ensure gradient does not repeat */
     background-size: cover; /* Cover the entire background */
-    height: 100vh; /* Ensure it covers the full viewport height */
+    min-height: 100vh; /* Ensure it covers the full viewport height */
     color: #333;
     margin: 0;
     padding: 0;
+    background-attachment: fixed; /* Ensure background continues with scroll */
 }
 
 /* Navbar */

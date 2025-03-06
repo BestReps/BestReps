@@ -26,39 +26,72 @@ def main():
         # Build the sheets service
         service = build('sheets', 'v4', credentials=credentials)
         
-        # Spreadsheet ID and range
-        # Replace with your actual spreadsheet ID
+        # Spreadsheet ID and range - updated to include all data
         spreadsheet_id = '1fx62SSDpk3aajq8wiatD6nOdl2-X2xA0TS-_2lC425k'
-        range_name = 'Sheet1!A1:C11'  # First 10 rows plus header row
         
-        # Make the API request
-        sheet = service.spreadsheets()
-        result = sheet.values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
+        # Get spreadsheet info to determine the actual data range
+        sheet_metadata = service.spreadsheets().get(spreadsheetId=spreadsheet_id).execute()
+        sheets = sheet_metadata.get('sheets', [])
         
-        # Extract values from the response
+        if not sheets:
+            print('No sheets found in the spreadsheet.')
+            return
+            
+        # Get the first sheet's properties
+        first_sheet = sheets[0]
+        sheet_title = first_sheet['properties']['title']
+        
+        # Make API request with pagination to handle large datasets
+        all_rows = []
+        batch_size = 1000  # Google Sheets API has limits on response size
+        
+        # First batch: get all columns but with a specified range of rows
+        range_name = f"{sheet_title}!A1:Z1000"  # First 1000 rows with columns A through Z
+        result = service.spreadsheets().values().get(
+            spreadsheetId=spreadsheet_id, 
+            range=range_name
+        ).execute()
+        
         rows = result.get('values', [])
+        all_rows.extend(rows)
         
-        if not rows:
+        # Second batch: get the next 1000 rows if needed
+        if len(rows) == 1000:  # If we got 1000 rows, there might be more
+            range_name = f"{sheet_title}!A1001:Z2000"  # Next 1000 rows
+            result = service.spreadsheets().values().get(
+                spreadsheetId=spreadsheet_id, 
+                range=range_name
+            ).execute()
+            more_rows = result.get('values', [])
+            all_rows.extend(more_rows)
+            
+            # Check if we need even more rows (beyond 2000)
+            if len(more_rows) == 1000:
+                print("Warning: There may be more than 2000 rows in the spreadsheet. Current extraction limited to 2000 rows.")
+        
+        if not all_rows:
             print('No data found in the spreadsheet.')
             return
         
         # Process data (assuming first row is header)
         processed_data = []
+        headers = all_rows[0] if all_rows else []
         
-        # Skip header row if present
-        data_rows = rows[1:11] if len(rows) > 1 else []
+        # Skip header row
+        data_rows = all_rows[1:] if len(all_rows) > 1 else []
         
+        # Process each row, handling missing data
         for row in data_rows:
-            # Handle rows with missing data
-            name = row[0] if len(row) > 0 else ""
-            price = row[1] if len(row) > 1 else ""
-            link = row[2] if len(row) > 2 else ""
+            row_data = {}
             
-            processed_data.append({
-                "name": name,
-                "price": price,
-                "link": link
-            })
+            # Get name, price, and link with proper error handling
+            row_data["name"] = row[0] if len(row) > 0 else ""
+            row_data["price"] = row[1] if len(row) > 1 else ""
+            row_data["link"] = row[2] if len(row) > 2 else ""
+            
+            # Only add rows that have at least a name
+            if row_data["name"]:
+                processed_data.append(row_data)
         
         # Write data to JSON file
         with open('data.json', 'w', encoding='utf-8') as f:
