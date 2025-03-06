@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'Sprintura';
+    src: url('Sprintura Demo.otf') format('opentype'); /* Ensure the correct path to the font file */
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sprintura', sans-serif;
     background: linear-gradient(to bottom right, #4b0082, #ff1493) no-repeat; /* Ensure gradient does not repeat */
     background-size: cover; /* Cover the entire background */
     min-height: 100vh; /* Ensure it covers the full viewport height */
