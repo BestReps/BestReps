@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 div.className = "fashion-item";
                 div.innerHTML = `
                     <p>${name}</p>
-                    <a href="${link}" target="_blank">${link}</a>
+                    <a href="${link}" target="_blank">Link</a>
                     <p>${price}</p>
                 `;
                 container.appendChild(div);
