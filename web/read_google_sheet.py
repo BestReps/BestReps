@@ -6,8 +6,11 @@ from googleapiclient.errors import HttpError
 
 def main():
     try:
+        # Get the user's home directory
+        home_dir = os.path.expanduser("~")
+        
         # Path to your service account credentials file
-        credentials_path = r'C:\Users\roans\Desktop\BestReps\web\bestreps-c66264362c6d.json'
+        credentials_path = os.path.join(home_dir, "Desktop", "BestReps", "web", "bestreps-c66264362c6d.json")
         
         # Check if credentials file exists
         if not os.path.exists(credentials_path):
