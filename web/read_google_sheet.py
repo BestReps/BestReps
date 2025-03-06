@@ -1,15 +1,15 @@
+import gspread
 import json
 import os
-import gspread
 from google.oauth2.service_account import Credentials
 
 # Get the user's home directory
 home_dir = os.path.expanduser("~")
 
 # Path to your JSON credentials file
-SERVICE_ACCOUNT_FILE = os.path.join(home_dir, "Desktop", "BestReps", "web", "service_account.json")
+SERVICE_ACCOUNT_FILE = os.path.join(home_dir, "Desktop", "BestReps", "web", "bestreps-c66264362c6d.json")
 
-# Define the scope (read-only access to Google Sheets)
+# Define the scope
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # Authenticate using the service account
@@ -33,9 +33,9 @@ except Exception as e:
     print(f"Error accessing the sheet: {e}")
     exit()
 
-# Try to get all the data from the worksheet
+# Try to get all the data from the worksheet starting from row 6
 try:
-    data = worksheet.get_all_values()
+    data = worksheet.get_all_values()[5:]  # Skip the first 5 rows
     print(f"Data retrieved: {len(data)} rows")
 except Exception as e:
     print(f"Error retrieving data from the sheet: {e}")
@@ -48,7 +48,10 @@ for row in data:
         continue  # Skip rows that don't have enough columns
     name, price_usd, link_text = row[0], row[3], row[9]  # Adjust to get link_text from column J
 
-    output_data.append([name, link_text, price_usd])
+    output_data.append([name, price_usd, link_text])
+
+    if len(output_data) >= 5:
+        break  # Stop after retrieving 5 rows
 
 # Save the data to a JSON file
 output_path = os.path.join(home_dir, "Desktop", "BestReps", "web", "data.json")
@@ -62,4 +65,4 @@ except Exception as e:
 # Display the output data in the terminal
 print("Output Data:")
 for item in output_data:
-    print(item)
+    print(f"Name: {item[0]}, Price: {item[1]}, Link: {item[2]}")

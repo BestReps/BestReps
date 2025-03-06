@@ -1,32 +1,33 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Path to your service account JSON file
-SERVICE_ACCOUNT_FILE = r'C:\Users\roans\Desktop\BestReps\web\service_account.json'  # Use raw string to avoid unicode escape issues
-
-# Scopes for read-only access to Google Sheets
+# Path to your service account JSON key file
+SERVICE_ACCOUNT_FILE = r"C:\Users\roans\Desktop\BestReps\web\bestreps-c66264362c6d.json"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
-# Google Sheet ID (Replace with your actual sheet ID)
-SHEET_ID = '16A8HiDzblYg6WEaFaTlc04Qw6F4_MXnoW9o8Ju4FQk8'  # Replace with your actual Google Sheet ID
-
-# Authenticate using the service account
+# Authenticate using service account credentials
 try:
     creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-    client = gspread.authorize(creds)
-    print("Successfully authenticated.")
+    print("✅ Credentials loaded successfully.")
 except Exception as e:
-    print(f"Error during authentication: {e}")
+    print(f"❌ Error loading credentials: {e}")
     exit()
 
-# Try to open the sheet by ID
+# Create a client to interact with Google Sheets API
+try:
+    client = gspread.authorize(creds)
+    print("✅ gspread authorized successfully.")
+except Exception as e:
+    print(f"❌ Error authorizing gspread: {e}")
+    exit()
+
+# Google Sheet ID (use the ID from your link)
+SHEET_ID = "1XIRn91wPyQQ1yi3alOE5BxG99ZNZ9UgloilsX9ploJc"
+
+# Attempt to open the sheet by ID
 try:
     sheet = client.open_by_key(SHEET_ID)
-    worksheet = sheet.get_worksheet(0)  # Access the first sheet
-    print("Successfully accessed the worksheet.")
-    # Optionally, fetch some data
-    data = worksheet.get_all_values()
-    print(f"Data retrieved from the sheet: {len(data)} rows")
+    print(f"✅ Successfully connected to the sheet: {sheet.title}")
 except Exception as e:
-    print(f"Error accessing the sheet: {e}")
+    print(f"❌ Error accessing the sheet: {e}")
     exit()
