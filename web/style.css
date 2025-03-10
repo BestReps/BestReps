@@ -296,8 +296,8 @@ button:hover {
 
 .item-link {
     display: inline-block;
-    background: #4b0082;
-    color: white !important;
+    background: white;
+    color: black !important;
     padding: 8px 15px;
     border-radius: 5px;
     margin-top: 10px;

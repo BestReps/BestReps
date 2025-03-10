@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             div.innerHTML = `
                                 <img src="${result.imagePath}" alt="Fashion item" onclick="openModal('${link}')">
                                 <div class="item-info">
-                                    <h3>Name: ${item.name || 'Product Name'}</h3>
+                                    <h3>${item.name || 'Product Name'}</h3>
                                     <p>Price: ${item.price || 'Price not available'}</p>
                                     <a href="${link}" target="_blank" class="item-link">View Product</a>
                                 </div>
