@@ -50,19 +50,15 @@ def analyze_terms(data):
             term_frequency[term] += 1
     return term_frequency
 
-# Step 3: Suggest potential categories with unique keywords
-def suggest_categories(term_frequency):
-    print("Common terms found in the data:")
-    for term, frequency in sorted(term_frequency.items(), key=lambda x: x[1], reverse=True):
-        print(f"{term}: {frequency} occurrences")
-    
-    # Suggest categories with unique keywords
-    suggestions = {
+# Step 3: Define categories with unique keywords
+def define_categories():
+    # Predefined categories and keywords
+    categories = {
         "shoes": [
             "nike", "adidas", "jordan", "yeezy", "puma", "new balance", "converse", "vans",
             "reebok", "asics", "under armour", "skechers", "fila", "timberland", "clarks",
             "dr. martens", "birkenstock", "crocs", "salomon", "onitsuka tiger", "hoka",
-            "balenciaga", "gucci", "prada", "louis vuitton", "common projects", "veja"
+            "balenciaga", "gucci", "prada", "louis vuitton", "common projects", "veja", "dunks"
         ],
         "shirts": [
             "ralph lauren", "tommy hilfiger", "lacoste", "versace", "t shirt", "shirt", "polo",
@@ -84,41 +80,42 @@ def suggest_categories(term_frequency):
         ]
     }
     
-    print("\nSuggested categories and keywords (unique to each category):")
-    for category, keywords in suggestions.items():
+    print("\nCategories and keywords:")
+    for category, keywords in categories.items():
         print(f"{category}: {', '.join(keywords)}")
     
-    return suggestions
-
-# Step 4: Define custom categories
-def define_categories(suggestions):
-    categories = {}
-    print("\nDefine your categories and keywords:")
-    for category, keywords in suggestions.items():
-        user_input = input(f"Enter keywords for '{category}' (comma-separated, or press Enter to use suggestions): ")
-        if user_input.strip():
-            categories[category] = [keyword.strip() for keyword in user_input.split(",")]
-        else:
-            categories[category] = keywords
     return categories
 
-# Step 5: Categorize the data
+# Step 4: Categorize the data
 def categorize_data(data, categories):
     categorized_data = []
     processed_count = 0  # Counter for processed items
     for item in data:
         name = item["name"].lower()
         category = "other"  # Default category
-        for cat, keywords in categories.items():
-            if any(keyword in name for keyword in keywords):
-                category = cat
-                break
+
+        # Special rules for combinations
+        if "dunks" in name and "supreme" in name:
+            category = "shoes"
+        elif "jordan" in name and "hoodie" in name:
+            category = "hoodies"
+        elif "yeezy" in name and "shirt" in name:
+            category = "shirts"
+        elif "nike" in name and "pants" in name:
+            category = "pants"
+        else:
+            # Check other categories
+            for cat, keywords in categories.items():
+                if any(keyword in name for keyword in keywords):
+                    category = cat
+                    break
+
         item["category"] = category
         categorized_data.append(item)
         processed_count += 1  # Increment counter
     return categorized_data, processed_count
 
-# Step 6: Save the parsed data to a JSON file
+# Step 5: Save the parsed data to a JSON file
 def save_to_json(data, output_file):
     try:
         with open(output_file, "w", encoding="utf-8") as f:
@@ -131,8 +128,8 @@ def save_to_json(data, output_file):
 def main():
     # List of HTML files to parse
     file_paths = [
-        r"pics\spreadsheet 1.html",  # First file
-        r"pics\spreadsheet 2.html"   # Second file
+        r"../web/sheets/spreadsheet 1.html",  # First file
+        r"../web/sheets/spreadsheet 2.html"   # Second file
     ]
     
     # Parse all HTML files and combine the data
@@ -150,17 +147,14 @@ def main():
     # Step 2: Analyze terms
     term_frequency = analyze_terms(all_products)
     
-    # Step 3: Suggest categories
-    suggested_categories = suggest_categories(term_frequency)
+    # Step 3: Define categories
+    categories = define_categories()
     
-    # Step 4: Define custom categories
-    categories = define_categories(suggested_categories)
-    
-    # Step 5: Categorize the data
+    # Step 4: Categorize the data
     categorized_data, processed_count = categorize_data(all_products, categories)
     
     # Save the categorized data to a JSON file
-    output_file = "data_cat.json"
+    output_file = "../web/data_cat.json"
     save_to_json(categorized_data, output_file)
     
     print(f"\nSuccess! Processed {processed_count} items.")

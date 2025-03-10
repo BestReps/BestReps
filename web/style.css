@@ -15,7 +15,12 @@ body {
     margin: 0;
     padding: 0;
     background-attachment: fixed; /* Ensure background continues with scroll */
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
+
 
 /* Navbar */
 .navbar {
@@ -30,7 +35,7 @@ body {
 
 .navbar .title {
     margin-bottom: 30px; /* Add space below the title */
-    margin-top: 80px; /* Add space above the title */
+    margin-top: 120px; /* Add space above the title */
 }
 
 .nav-links {
@@ -53,6 +58,39 @@ body {
     transform: scale(1.1); /* Make the text a bit bigger */
 }
 
+h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    margin: 80px auto 0 auto;  /* Reduced bottom margin to 0 */
+    text-align: center;
+    animation: hotPulse 2s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    position: relative;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+@keyframes hotPulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        transform: scale(1.05); /* Reduced from 1.1 to 1.05 */
+        text-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+        color: #ff4500;
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+}
+
 /* Fashion Container */
 .fashion-container {
     display: grid;
@@ -60,16 +98,19 @@ body {
     gap: 20px;
     padding: 30px;
     max-width: 1000px;
-    margin: 50px auto 0 auto; /* Move the container down */
+    margin: 20px auto 0 auto; /* Reduced top margin from 50px to 20px */
 }
 
 /* Fashion Items */
 .fashion-item {
-    background: url('pictures/gray-stone-texture.jpg') no-repeat center center fixed;
+    background: url('pictures/gray-stone-texture.jpg') center center;
+    background-size: cover;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     transition: transform 0.3s ease;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .image-container {
@@ -312,7 +353,6 @@ button:hover {
     transform: translateY(-2px);
 }
 
-
 /* Search Bar and Autocomplete */
 .search-container {
     position: relative;
@@ -397,3 +437,4 @@ button:hover {
     border-radius: 15px;
     border: 2px solid #000;
 }
+
