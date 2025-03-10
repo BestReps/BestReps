@@ -10,21 +10,28 @@ document.addEventListener("DOMContentLoaded", function() {
             const container = document.getElementById("fashion-container");
             
             // Process items
-            const loadItems = data.slice(0, 50).map((item, index) => {
+            const loadItems = data.slice(0, 20).map((item, index) => {
                 const { link } = item;
-                const paddedIndex = index.toString().padStart(3, '0');
-                const jpgPath = `pics/extracted_images/image_${paddedIndex}.jpg`;
-                const pngPath = `pics/extracted_images/image_${paddedIndex}.png`;
-                
-                // Check which image exists (JPG or PNG)
-                return checkImageExists(jpgPath)
-                    .then(jpgExists => {
-                        if (jpgExists) {
-                            return { item, imagePath: jpgPath };
+                const paddedIndex = (index + 1).toString().padStart(3, '0'); // Start at 001
+                const pngPath = `/web/pics/extracted_images/image_${paddedIndex}.png`;
+                const jpgPath = `/web/pics/extracted_images/image_${paddedIndex}.jpg`;
+
+                // Check both formats dynamically
+                return checkImageExists(pngPath)
+                    .then(pngExists => {
+                        if (pngExists) {
+                            console.log(`✅ Found: ${pngPath}`);
+                            return { item, imagePath: pngPath };
                         } else {
-                            return checkImageExists(pngPath)
-                                .then(pngExists => {
-                                    return { item, imagePath: pngExists ? pngPath : null };
+                            return checkImageExists(jpgPath)
+                                .then(jpgExists => {
+                                    if (jpgExists) {
+                                        console.log(`✅ Found: ${jpgPath}`);
+                                        return { item, imagePath: jpgPath };
+                                    } else {
+                                        console.log(`❌ Not Found: ${pngPath} or ${jpgPath}`);
+                                        return { item, imagePath: null };
+                                    }
                                 });
                         }
                     })
@@ -33,14 +40,28 @@ document.addEventListener("DOMContentLoaded", function() {
                         div.className = "fashion-item";
                         
                         if (result.imagePath) {
+                            // Create the image element
+                            const img = document.createElement("img");
+                            img.alt = "Fashion item";
+                            img.onclick = () => openModal(link);
+
+                            // Set the src attribute
+                            img.src = result.imagePath;
+
+                            // Suppress 404 errors for this image
+                            img.onerror = () => {
+                                console.log(`⚠️ Suppressed 404 for: ${result.imagePath}`);
+                                img.style.display = "none"; // Hide the broken image
+                            };
+
                             div.innerHTML = `
-                                <img src="${result.imagePath}" alt="Fashion item" onclick="openModal('${link}')">
                                 <div class="item-info">
                                     <h3>${item.name || 'Product Name'}</h3>
                                     <p>Price: ${item.price || 'Price not available'}</p>
                                     <a href="${link}" target="_blank" class="item-link">View Product</a>
                                 </div>
                             `;
+                            div.prepend(img); // Add the image to the top of the div
                         } else {
                             // Fallback if neither JPG nor PNG exists
                             div.innerHTML = `
