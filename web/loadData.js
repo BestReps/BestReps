@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const container = document.getElementById("fashion-container");
             
             // Process items
-            const loadItems = data.slice(0, 3000).map((item, index) => {
+            const loadItems = data.slice(0, 50).map((item, index) => {
                 const { link } = item;
                 const paddedIndex = index.toString().padStart(3, '0');
                 const jpgPath = `pics/extracted_images/image_${paddedIndex}.jpg`;
