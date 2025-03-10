@@ -52,13 +52,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function filterResults(searchTerm) {
         const items = document.querySelectorAll('.fashion-item');
+        let foundItems = 0;
+        const container = document.getElementById('fashion-container');
+        
+        // Remove existing no-results message if it exists
+        const existingMessage = container.querySelector('.no-results');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+
         items.forEach(item => {
             const name = item.querySelector('h3').textContent.toLowerCase();
             if (searchTerm === '' || name.includes(searchTerm)) {
                 item.classList.remove('hidden');
+                foundItems++;
             } else {
                 item.classList.add('hidden');
             }
         });
+
+        // Show "no results" message if no items were found
+        if (foundItems === 0 && searchTerm !== '') {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'Item not found';
+            container.appendChild(noResults);
+        }
     }
 });
