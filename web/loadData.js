@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then((data) => {
             console.log("Data fetched successfully:", data); // Debugging log
+
             const container = document.getElementById("fashion-container");
             setupSearchAndAutocomplete(data); // Add this line
 
@@ -105,10 +106,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to shuffle an array (Fisher-Yates algorithm)
 function shuffleArray(array) {
+    console.log("Original array:", array); // Debugging log
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]]; // Swap elements
     }
+    console.log("Shuffled array:", array); // Debugging log
     return array;
 }
 
@@ -116,6 +119,8 @@ function shuffleArray(array) {
 function displayProducts(products, hideMissingImages) {
     const container = document.getElementById("fashion-container");
     container.innerHTML = ""; // Clear the container
+
+    console.log("Displaying products:", products); // Debugging log
 
     products.forEach((item, index) => {
         const { link, image_url, name, price_usd } = item;
