@@ -8,7 +8,7 @@
 /* General Styles */
 body {
     font-family: 'Sprintura', sans-serif;
-    background: linear-gradient(to bottom right, #4b0082, #ff1493) no-repeat; /* Ensure gradient does not repeat */
+    background: url('pictures/vertical-grey-scale-shot-black-surface.jpg') no-repeat center center fixed;
     background-size: cover; /* Cover the entire background */
     min-height: 100vh; /* Ensure it covers the full viewport height */
     color: #333;
@@ -50,7 +50,7 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: black;
+    color: white;
     font-weight: 600;
     padding: 10px 20px;
     border-radius: 5px;
@@ -73,7 +73,7 @@ body {
 
 /* Fashion Items */
 .fashion-item {
-    background: linear-gradient(to bottom right, #4b0082, #ff1493) no-repeat;
+    background: url('pictures/gray-stone-texture.jpg') no-repeat center center fixed;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -275,4 +275,35 @@ button:hover {
     width: 150px;
     height: auto;
     cursor: pointer;
+}
+
+.item-info {
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
+    margin-top: -5px;
+}
+
+.item-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #000;
+}
+
+.item-info p {
+    margin: 5px 0;
+    color: #000;
+}
+
+.item-link {
+    display: inline-block;
+    background: #4b0082;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: transform 0.3s ease;
+}
+
+.item-link:hover {
+    transform: translateY(-2px);
 }
