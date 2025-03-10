@@ -8,8 +8,7 @@
 /* General Styles */
 body {
     font-family: 'Sprintura', sans-serif;
-    /* background: url('pictures/vertical-grey-scale-shot-black-surface.jpg') no-repeat center center fixed; */
-    background-color: white;
+    background: url('pictures/vertical-grey-scale-shot-black-surface.jpg') no-repeat center center fixed;
     background-size: cover; /* Cover the entire background */
     min-height: 100vh; /* Ensure it covers the full viewport height */
     color: #333;
