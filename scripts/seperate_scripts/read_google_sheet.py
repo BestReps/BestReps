@@ -80,6 +80,9 @@ def main():
         # Skip header row
         data_rows = all_rows[1:] if len(all_rows) > 1 else []
         
+        # Counter for processed rows
+        processed_count = 0
+        
         # Process each row, handling missing data
         for row in data_rows:
             row_data = {}
@@ -92,12 +95,13 @@ def main():
             # Only add rows that have at least a name
             if row_data["name"]:
                 processed_data.append(row_data)
+                processed_count += 1  # Increment counter
         
         # Write data to JSON file
         with open('../web/data.json', 'w', encoding='utf-8') as f:
             json.dump(processed_data, f, ensure_ascii=False, indent=2)
         
-        print(f"Success! Processed {len(processed_data)} rows of data.")
+        print(f"Success! Processed {processed_count} rows of data.")
         print("Data saved to data.json")
         
     except HttpError as error:

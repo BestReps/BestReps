@@ -16,21 +16,41 @@ def analyze_terms(data):
             term_frequency[term] += 1
     return term_frequency
 
-# Step 3: Suggest potential categories
+# Step 3: Suggest potential categories with unique keywords
 def suggest_categories(term_frequency):
     print("Common terms found in the data:")
     for term, frequency in sorted(term_frequency.items(), key=lambda x: x[1], reverse=True):
         print(f"{term}: {frequency} occurrences")
     
-    # Suggest categories based on common terms
+    # Suggest categories with unique keywords
     suggestions = {
-        "shoes": ["airforce", "yeezy", "sneakers", "boots"],
-        "shirts": ["t-shirt", "shirt", "polo", "sweatshirt"],
-        "pants": ["jeans", "trousers", "cargos", "sweatpants"],
-        "accessories": ["cap", "hat", "belt", "watch"]
+        "shoes": [
+            "nike", "adidas", "jordan", "yeezy", "puma", "new balance", "converse", "vans",
+            "reebok", "asics", "under armour", "skechers", "fila", "timberland", "clarks",
+            "dr. martens", "birkenstock", "crocs", "salomon", "onitsuka tiger", "hoka",
+            "balenciaga", "gucci", "prada", "louis vuitton", "common projects", "veja"
+        ],
+        "shirts": [
+            "ralph lauren", "tommy hilfiger", "lacoste", "versace", "t shirt", "shirt", "polo",
+            "henley", "button down", "oxford", "flannel", "champion", "supreme", "stone island",
+            "off-white", "palace", "stussy", "carhartt", "uniqlo", "zara", "h&m", "calvin klein",
+            "hugo boss", "burberry", "armani"
+        ],
+        "pants": [
+            "levi's", "wrangler", "diesel", "calvin klein", "hugo boss", "tommy hilfiger",
+            "jeans", "chinos", "cargos", "trousers", "sweatpants", "joggers", "khakis", "slacks",
+            "dickies", "carhartt", "uniqlo", "zara", "h&m", "prada", "balenciaga", "off-white",
+            "stone island", "supreme", "palace"
+        ],
+        "hoodies": [
+            "champion", "supreme", "stone island", "off-white", "palace", "stussy", "carhartt",
+            "uniqlo", "zara", "h&m", "calvin klein", "hugo boss", "gucci", "versace", "balenciaga",
+            "prada", "fear of god", "essentials", "yeezy", "tommy hilfiger", "ralph lauren",
+            "lacoste", "burberry", "armani"
+        ]
     }
     
-    print("\nSuggested categories and keywords:")
+    print("\nSuggested categories and keywords (unique to each category):")
     for category, keywords in suggestions.items():
         print(f"{category}: {', '.join(keywords)}")
     
@@ -51,6 +71,7 @@ def define_categories(suggestions):
 # Step 5: Categorize the data
 def categorize_data(data, categories):
     categorized_data = []
+    processed_count = 0  # Counter for processed items
     for item in data:
         name = item["name"].lower()
         category = "other"  # Default category
@@ -60,12 +81,13 @@ def categorize_data(data, categories):
                 break
         item["category"] = category
         categorized_data.append(item)
-    return categorized_data
+        processed_count += 1  # Increment counter
+    return categorized_data, processed_count
 
 # Main function
 def main():
     # Step 1: Load data
-    data = load_data("data.json")
+    data = load_data("../web/data.json")
     
     # Step 2: Analyze terms
     term_frequency = analyze_terms(data)
@@ -77,13 +99,14 @@ def main():
     categories = define_categories(suggested_categories)
     
     # Step 5: Categorize the data
-    categorized_data = categorize_data(data, categories)
+    categorized_data, processed_count = categorize_data(data, categories)
     
     # Save categorized data to JSON file
-    with open("categorized_data.json", "w", encoding="utf-8") as f:
+    with open("../web/data_cat.json", "w", encoding="utf-8") as f:
         json.dump(categorized_data, f, ensure_ascii=False, indent=2)
     
-    print("\nCategorized data saved to 'categorized_data.json'.")
+    print(f"\nSuccess! Processed {processed_count} items.")
+    print("Categorized data saved to '../web/data_cat.json'.")
 
 if __name__ == "__main__":
     main()

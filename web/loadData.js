@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch("data.json")
+    // Dynamically detect the category from the page's filename
+    const category = window.location.pathname.split('/').pop().replace('.html', '');
+
+    fetch("data_cat.json")  // Load the categorized data
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok " + response.statusText);
@@ -7,10 +10,13 @@ document.addEventListener("DOMContentLoaded", function() {
             return response.json();
         })
         .then(data => {
+            // Filter data for the current category
+            const filteredData = data.filter(item => item.category === category);
+
             const container = document.getElementById("fashion-container");
             
             // Process items
-            const loadItems = data.slice(0, 20).map((item, index) => {
+            const loadItems = filteredData.slice(0, 3000).map((item, index) => {
                 const { link } = item;
                 const paddedIndex = (index + 1).toString().padStart(3, '0'); // Start at 001
                 const pngPath = `/pics/extracted_images/image_${paddedIndex}.png`;
@@ -97,4 +103,18 @@ function checkImageStatus(url) {
         .catch(() => {
             return 404; // Return 404 without logging an error
         });
+}
+
+// Function to open the modal
+function openModal(link) {
+    const modal = document.getElementById("popupModal");
+    const iframe = document.getElementById("popupFrame");
+    iframe.src = link;
+    modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById("popupModal");
+    modal.style.display = "none";
 }

@@ -115,6 +115,18 @@ body {
     border-radius: 8px;
 }
 
+.error-message {
+    color: black;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    font-family: 'Sprintura', sans-serif;
+    border: 2px solid #000;
+    margin: 20px auto;
+    max-width: 80%;
+}
+
 .fashion-item img {
     width: 100%;
     height: auto;
