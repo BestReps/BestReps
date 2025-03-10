@@ -5,19 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BestReps</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="loadData.js" defer></script> <!-- Add script to load data -->
+    <script src="loadData.js" defer></script> 
     <link rel="icon" type="image/x-icon" href="pictures/favicon.png">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8472164688173420"
      crossorigin="anonymous"></script>
+    <script src="searchbar.js" defer></script>
 </head>
 <body>
 
     <!-- Navbar -->
     <nav class="navbar">
         <a href="index.html" class="title">
-            <img src="./pictures/logoW.png" alt="Logo">
+            <img src="/pictures/logoW.png" alt="Logo">
 
         </a>
+        
+        <!-- Add search bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search products...">
+        </div>
+        
         <ul class="nav-links">
             <li><a href="hoodies.html">Hoodies</a></li>
             <li><a href="shoes.html">Shoes</a></li>

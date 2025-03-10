@@ -13,19 +13,19 @@ document.addEventListener("DOMContentLoaded", function() {
             const loadItems = data.slice(0, 20).map((item, index) => {
                 const { link } = item;
                 const paddedIndex = (index + 1).toString().padStart(3, '0'); // Start at 001
-                const pngPath = `/web/pics/extracted_images/image_${paddedIndex}.png`;
-                const jpgPath = `/web/pics/extracted_images/image_${paddedIndex}.jpg`;
+                const pngPath = `/pics/extracted_images/image_${paddedIndex}.png`;
+                const jpgPath = `/pics/extracted_images/image_${paddedIndex}.jpg`;
 
                 // Check both formats dynamically
-                return checkImageExists(pngPath)
-                    .then(pngExists => {
-                        if (pngExists) {
+                return checkImageStatus(pngPath)
+                    .then(pngStatus => {
+                        if (pngStatus === 200) {
                             console.log(`✅ Found: ${pngPath}`);
                             return { item, imagePath: pngPath };
                         } else {
-                            return checkImageExists(jpgPath)
-                                .then(jpgExists => {
-                                    if (jpgExists) {
+                            return checkImageStatus(jpgPath)
+                                .then(jpgStatus => {
+                                    if (jpgStatus === 200) {
                                         console.log(`✅ Found: ${jpgPath}`);
                                         return { item, imagePath: jpgPath };
                                     } else {
@@ -88,12 +88,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 });
 
-// Function to check if an image exists
-function checkImageExists(url) {
-    return new Promise(resolve => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = url;
-    });
+// Function to check the HTTP status of an image
+function checkImageStatus(url) {
+    return fetch(url, { method: 'HEAD' })
+        .then(response => {
+            return response.status; // Return the status code
+        })
+        .catch(() => {
+            return 404; // Return 404 without logging an error
+        });
 }

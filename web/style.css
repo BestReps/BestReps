@@ -25,20 +25,12 @@ body {
     align-items: center;
     padding: 15px 30px;
     position: relative; /* Add relative positioning */
-    height: 200px; /* Increase height to give more room */
+    height: 250px; /* Increase height to give more room */
 }
 
 .navbar .title {
-    display: flex;
-    align-items: center;
-    font-size: 100px;
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
-    height: 100px;
-    margin-bottom: 20px; /* Add space below the title */
-    margin-top: 50px; /* Add space above the title */
-    text-align: center;
+    margin-bottom: 30px; /* Add space below the title */
+    margin-top: 80px; /* Add space above the title */
 }
 
 .nav-links {
@@ -306,4 +298,75 @@ button:hover {
 
 .item-link:hover {
     transform: translateY(-2px);
+}
+
+
+/* Search Bar and Autocomplete */
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #000;
+    border-radius: 15px;
+    background: url('pictures/gray-stone-texture.jpg') center center;
+    background-size: cover;
+    font-family: 'Sprintura', sans-serif;
+    font-size: 20px;
+    color: black;
+    box-sizing: border-box;
+}
+
+#searchInput::placeholder {
+    color: black;
+    font-family: 'Sprintura', sans-serif;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-radius: 25px 25px 0 0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide items that don't match search */
+.fashion-item.hidden {
+    display: none;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: url('pictures/gray-stone-texture.jpg') center center;
+    background-size: cover;
+    border: 2px solid #000;
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+    margin-top: -2px;
+    padding: 0;
+    list-style: none;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;  /* Match parent width */
+    box-sizing: border-box;
+   
+}
+
+.autocomplete-list li {
+    padding: 12px 20px;
+    cursor: pointer;
+    color: black;
+    font-family: 'Sprintura', sans-serif;
+    transition: background-color 0.2s ease;
+}
+
+.autocomplete-list li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }

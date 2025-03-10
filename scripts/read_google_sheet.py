@@ -94,7 +94,7 @@ def main():
                 processed_data.append(row_data)
         
         # Write data to JSON file
-        with open('data.json', 'w', encoding='utf-8') as f:
+        with open('../web/data.json', 'w', encoding='utf-8') as f:
             json.dump(processed_data, f, ensure_ascii=False, indent=2)
         
         print(f"Success! Processed {len(processed_data)} rows of data.")
