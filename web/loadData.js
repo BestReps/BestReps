@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Dynamically detect the current page's filename
     const currentPage = window.location.pathname.split('/').pop();
 
@@ -9,20 +9,22 @@ document.addEventListener("DOMContentLoaded", function() {
     searchInput.parentNode.appendChild(autocompleteList);
 
     fetch("data_cat.json")  // Load the categorized data
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok " + response.statusText);
             }
             return response.json();
         })
-        .then(data => {
+        .then((data) => {
+            console.log("Data fetched successfully:", data); // Debugging log
             const container = document.getElementById("fashion-container");
             setupSearchAndAutocomplete(data); // Add this line
 
             if (currentPage === "index.html") {
-                // Randomize and display products on index.htmla
+                // Randomize and display products on index.html
                 const shuffledData = shuffleArray(data); // Shuffle all data
-                displayProducts(shuffledData.slice(0, 12), true); // Display 12 random products, hide missing images
+                console.log("Shuffled data:", shuffledData); // Debugging log
+                displayProducts(shuffledData.slice(0, 6), true); // Display 6 random products, hide missing images
             } else {
                 // Categorize and display products on other pages
                 const category = currentPage.replace('.html', ''); // Extract category from filename
@@ -30,20 +32,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 displayProducts(filteredData, false); // Display categorized products, show placeholders for missing images
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error loading data:", error);
-            document.getElementById("fashion-container").innerHTML = 
+            document.getElementById("fashion-container").innerHTML =
                 '<div class="error-message">Sorry, there was an error loading the products. Please try again later.</div>';
         });
 
     // Add the search and autocomplete functionality
     function setupSearchAndAutocomplete(allProducts) {
-        searchInput.addEventListener('input', function(e) {
+        searchInput.addEventListener('input', function (e) {
             const searchTerm = e.target.value.toLowerCase().trim();
-            
+
             // Clear previous autocomplete suggestions
             autocompleteList.innerHTML = '';
-            
+
             if (searchTerm.length > 0) {
                 const matches = allProducts
                     .filter(product => product.name && product.name.toLowerCase().includes(searchTerm))
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Hide autocomplete when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (e.target !== searchInput) {
                 autocompleteList.innerHTML = '';
             }
@@ -76,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const items = document.querySelectorAll('.fashion-item');
         let foundItems = 0;
         const container = document.getElementById('fashion-container');
-        
+
         const existingMessage = container.querySelector('.no-results');
         if (existingMessage) {
             existingMessage.remove();
@@ -120,7 +122,7 @@ function displayProducts(products, hideMissingImages) {
 
         const div = document.createElement("div");
         div.className = "fashion-item";
-        
+
         if (image_url) {
             // Create the image element
             const img = document.createElement("img");
@@ -169,7 +171,7 @@ function displayProducts(products, hideMissingImages) {
                 </div>
             `;
         }
-        
+
         if (!hideMissingImages || image_url) {
             // Only append the product if it's not hidden
             container.appendChild(div);
