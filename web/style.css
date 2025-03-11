@@ -35,18 +35,26 @@ body {
 
 .navbar .title {
   position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  transform: none;
   z-index: 1000;
   margin: 0;
   transition: all 0.3s ease;
-  margin-top: 20px;
+  padding: 10px 0;
+  background: none; /* Remove initial background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1; /* Make logo visible initially */
+  visibility: visible;
 }
 
 .navbar .title img {
   height: auto;
-  transition: all 0.3s ease; /* Smooth transition for size changes */
+  width: 600px;
+  transition: all 0.3s ease;
 }
 
 .nav-links {

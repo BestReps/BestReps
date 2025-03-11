@@ -2,11 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // GSAP ScrollTrigger animation
   gsap.registerPlugin(ScrollTrigger);
 
-  const logo = document.querySelector(".navbar .title img");
+  const logoContainer = document.querySelector(".navbar .title");
+  const logo = logoContainer.querySelector("img");
   let lastScrollY = window.scrollY;
 
   // Initial state
-  logo.style.width = "600px"; // Set initial logo size to 300px
+  logo.style.width = "600px";
+  logoContainer.style.visibility = "visible";
 
   // Handle scroll events
   window.addEventListener("scroll", () => {
@@ -15,17 +17,33 @@ document.addEventListener("DOMContentLoaded", function () {
     // Scrolling up
     if (currentScrollY < lastScrollY) {
       gsap.to(logo, {
-        width: 600, // Increased from 200px for larger logo
+        width: 600,
         duration: 0.3,
         ease: "power2.out",
+      });
+      gsap.to(logoContainer, {
+        backgroundColor: "rgba(0, 0, 0, 0.8)", // Semi-transparent black background
+        duration: 0.3,
+        ease: "power2.out",
+        onStart: () => {
+          logoContainer.style.visibility = "visible";
+        },
       });
     }
     // Scrolling down
     else if (currentScrollY > lastScrollY) {
       gsap.to(logo, {
-        width: 0, // Increased from 100px to maintain proportion
+        width: 0,
         duration: 0.3,
         ease: "power2.out",
+      });
+      gsap.to(logoContainer, {
+        backgroundColor: "transparent",
+        duration: 0.3,
+        ease: "power2.out",
+        onComplete: () => {
+          logoContainer.style.visibility = "hidden";
+        },
       });
     }
 
