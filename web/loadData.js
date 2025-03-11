@@ -14,8 +14,24 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
 
+    // Always show logo at top of page
+    if (currentScrollY <= 0) {
+      gsap.to(logo, {
+        width: 600,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+      gsap.to(logoContainer, {
+        backgroundColor: "transparent",
+        duration: 0.3,
+        ease: "power2.out",
+        onStart: () => {
+          logoContainer.style.visibility = "visible";
+        },
+      });
+    }
     // Scrolling up
-    if (currentScrollY < lastScrollY) {
+    else if (currentScrollY < lastScrollY) {
       gsap.to(logo, {
         width: 600,
         duration: 0.3,
