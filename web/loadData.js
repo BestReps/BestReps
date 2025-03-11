@@ -1,4 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // GSAP ScrollTrigger animation
+  gsap.registerPlugin(ScrollTrigger);
+
+  const logo = document.querySelector(".navbar .title img");
+  let lastScrollY = window.scrollY;
+
+  // Initial state
+  logo.style.width = "600px"; // Set initial logo size to 300px
+
+  // Handle scroll events
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    // Scrolling up
+    if (currentScrollY < lastScrollY) {
+      gsap.to(logo, {
+        width: 600, // Increased from 200px for larger logo
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    }
+    // Scrolling down
+    else if (currentScrollY > lastScrollY) {
+      gsap.to(logo, {
+        width: 0, // Increased from 100px to maintain proportion
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    }
+
+    lastScrollY = currentScrollY;
+  });
+
   // Dynamically detect the current page's filename
   const path = window.location.pathname;
   // Check if it's the home page (empty path, just "/", or ends with index.html)
