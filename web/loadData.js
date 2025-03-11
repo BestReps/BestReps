@@ -1,12 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Dynamically detect the current page's filename
-  const currentPage = window.location.pathname.split("/").pop();
+  const path = window.location.pathname;
+  // Check if it's the home page (empty path, just "/", or ends with index.html)
+  const isHomePage = path === "/" || path === "" || path.endsWith("index.html");
 
   // Set up search and autocomplete
   const searchInput = document.getElementById("searchInput");
   const autocompleteList = document.createElement("ul");
   autocompleteList.className = "autocomplete-list";
   searchInput.parentNode.appendChild(autocompleteList);
+
+  // Static Air Force One product data
+  const staticProduct = {
+    name: "airforce one",
+    price_usd: "$13",
+    image_url:
+      "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GPbpPR9U63iaaG8yPJDjVdVSS640_cYFzS6vP7-0yTM0ZDv_3pyhEsdDVdB7VUKgRUpTIlem52UhGCjI7LptLBA_TlwiBwKwedtyGV4Ie6g2WSK4BozeDQvDQdN3_Gm9ndqXqcIw=w204-h163?key=p2g3-rzV9ITo2xi2WG5U_ZHr",
+    link: "https://cnfans.com/product/?shop_type=weidian&id=7240332207&ref=201196",
+    category: "other",
+  };
 
   fetch("data_cat.json") // Load the categorized data
     .then((response) => {
@@ -21,14 +33,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const container = document.getElementById("fashion-container");
       setupSearchAndAutocomplete(data); // Add this line
 
-      if (currentPage === "index.html") {
-        // Randomize and display products on index.html
-        const shuffledData = shuffleArray(data); // Shuffle all data
-        console.log("Shuffled data:", shuffledData); // Debugging log
-        displayProducts(shuffledData.slice(0, 6), true); // Display 6 random products, hide missing images
+      if (isHomePage) {
+        // Only display the static product on the home page
+        console.log(
+          "On home page - displaying static Air Force One product only"
+        );
+        displayProducts([staticProduct], true);
       } else {
         // Categorize and display products on other pages
+        const currentPage = path.split("/").pop() || "index.html";
         const category = currentPage.replace(".html", ""); // Extract category from filename
+        console.log("On category page:", category);
+
         const filteredData = data.filter((item) => item.category === category);
         displayProducts(filteredData, false); // Display categorized products, show placeholders for missing images
       }
@@ -41,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add the search and autocomplete functionality
   function setupSearchAndAutocomplete(allProducts) {
+    // Add the static product to the search data
+    const searchProducts = [...allProducts, staticProduct];
+
     searchInput.addEventListener("input", function (e) {
       const searchTerm = e.target.value.toLowerCase().trim();
 
@@ -48,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
       autocompleteList.innerHTML = "";
 
       if (searchTerm.length > 0) {
-        const matches = allProducts
+        const matches = searchProducts
           .filter(
             (product) =>
               product.name && product.name.toLowerCase().includes(searchTerm)
@@ -60,14 +79,14 @@ document.addEventListener("DOMContentLoaded", function () {
           li.textContent = product.name;
           li.addEventListener("click", () => {
             searchInput.value = product.name;
-            filterResults(allProducts, product.name.toLowerCase());
+            filterResults(searchProducts, product.name.toLowerCase());
             autocompleteList.innerHTML = "";
           });
           autocompleteList.appendChild(li);
         });
       }
 
-      filterResults(allProducts, searchTerm);
+      filterResults(searchProducts, searchTerm);
     });
 
     // Hide autocomplete when clicking outside
@@ -106,17 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
-
-// Function to shuffle an array (Fisher-Yates algorithm)
-function shuffleArray(array) {
-  console.log("Original array:", array); // Debugging log
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-  }
-  console.log("Shuffled array:", array); // Debugging log
-  return array;
-}
 
 // Function to display products
 function displayProducts(products, hideMissingImages) {
