@@ -314,6 +314,7 @@ h1 {
   h1 {
     font-size: 24px;
     margin: 40px auto 0 auto;
+    animation: none; /* Disable animation on mobile */
   }
 
   .modal-content {
