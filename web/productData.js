@@ -30,5 +30,11 @@ export async function fetchProductData() {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-  return response.json();
+  const data = await response.json();
+  console.log("🔄 Fetched Data:", {
+    totalItems: data.length,
+    categories: [...new Set(data.map((item) => item.category))],
+    data,
+  });
+  return data;
 }

@@ -1,4 +1,10 @@
 export function displayProducts(products, hideMissingImages) {
+  console.log("📦 Displaying Products:", {
+    count: products.length,
+    hideMissingImages,
+    products,
+  });
+
   const container = document.getElementById("fashion-container");
   container.innerHTML = "";
 
