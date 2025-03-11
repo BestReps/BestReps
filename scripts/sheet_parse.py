@@ -97,12 +97,18 @@ def categorize_data(data, categories):
         # Special rules for combinations
         if "dunks" in name and "supreme" in name:
             category = "shoes"
+        elif "supreme" in name and "air force" in name:
+            category = "shoes"
         elif "jordan" in name and "hoodie" in name:
             category = "hoodies"
         elif "yeezy" in name and "shirt" in name:
             category = "shirts"
         elif "nike" in name and "pants" in name:
             category = "pants"
+        elif "supreme" in name and "socks" in name:
+            category = "other"
+        elif "burberry" in name and "slides" in name:
+            category = "other"
         else:
             # Check other categories
             for cat, keywords in categories.items():
