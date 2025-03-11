@@ -1,461 +1,464 @@
 @font-face {
-    font-family: 'Sprintura';
-    src: url('Sprintura Demo.otf') format('opentype'); /* Ensure the correct path to the font file */
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Sprintura";
+  src: url("Sprintura Demo.otf") format("opentype"); /* Ensure the correct path to the font file */
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* General Styles */
 body {
-    font-family: 'Sprintura', sans-serif;
-    background: url('pictures/vertical-grey-scale-shot-black-surface.jpg') no-repeat center center fixed;
-    background-size: cover; /* Cover the entire background */
-    min-height: 100vh; /* Ensure it covers the full viewport height */
-    color: #333;
-    margin: 0;
-    padding: 0;
-    background-attachment: fixed; /* Ensure background continues with scroll */
-    overflow-x: hidden;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+  font-family: "Sprintura", sans-serif;
+  background: url("pictures/vertical-grey-scale-shot-black-surface.jpg")
+    no-repeat center center fixed;
+  background-size: cover; /* Cover the entire background */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  background-attachment: fixed; /* Ensure background continues with scroll */
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
-
 
 /* Navbar */
 .navbar {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center the content horizontally */
-    align-items: center;
-    padding: 15px 30px;
-    position: relative; /* Add relative positioning */
-    height: 250px; /* Increase height to give more room */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center;
+  padding: 15px 30px;
+  position: relative; /* Add relative positioning */
+  height: 250px; /* Increase height to give more room */
 }
 
 .navbar .title {
-    margin-bottom: 30px; /* Add space below the title */
-    margin-top: 120px; /* Add space above the title */
+  margin-bottom: 30px; /* Add space below the title */
+  margin-top: 120px; /* Add space above the title */
 }
 
 .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    font-size: 40px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  font-size: 40px;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transform transition */
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transform transition */
 }
 
 .nav-links a:hover {
-    transform: scale(1.1); /* Make the text a bit bigger */
+  transform: scale(1.1); /* Make the text a bit bigger */
 }
 
 h1 {
-    font-size: 32px;
-    font-weight: 600;
-    color: white;
-    margin: 80px auto 0 auto;  /* Reduced bottom margin to 0 */
-    text-align: center;
-    animation: hotPulse 2s ease-in-out infinite;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    position: relative;
-    padding: 10px;
-    display: block;
-    width: 100%;
-    text-align: center;
-    max-width: 100%;
-    overflow: hidden;
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  margin: 80px auto 0 auto; /* Reduced bottom margin to 0 */
+  text-align: center;
+  animation: hotPulse 2s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  position: relative;
+  padding: 10px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 @keyframes hotPulse {
-    0% {
-        transform: scale(1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-        transform: scale(1.05); /* Reduced from 1.1 to 1.05 */
-        text-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
-        color: #ff4500;
-    }
-    100% {
-        transform: scale(1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.05); /* Reduced from 1.1 to 1.05 */
+    text-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+    color: #ff4500;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
 }
 
 /* Fashion Container */
 .fashion-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 30px;
-    max-width: 1000px;
-    margin: 20px auto 0 auto; /* Reduced top margin from 50px to 20px */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 20px auto 0 auto; /* Reduced top margin from 50px to 20px */
 }
 
 /* Fashion Items */
 .fashion-item {
-    background: url('pictures/gray-stone-texture.jpg') center center;
-    background-size: cover;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    max-width: 100%;
-    overflow: hidden;
+  background: url("pictures/gray-stone-texture.jpg") center center;
+  background-size: cover;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .image-container {
-    width: 100%;
-    height: 300px;
-    margin: 10px 0;
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: white;
+  width: 100%;
+  height: 300px;
+  margin: 10px 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: white;
 }
 
 .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
 .item-details {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .item-link {
-    display: inline-block;
-    background: white;
-    color: #4b0082;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s ease;
+  display: inline-block;
+  background: white;
+  color: #4b0082;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
 
 .item-link:hover {
-    background: #f0f0f0;
-    transform: translateY(-2px);
+  background: #f0f0f0;
+  transform: translateY(-2px);
 }
 
 .error {
-    color: white;
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 0, 0, 0.1);
-    border-radius: 8px;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .error-message {
-    color: black;
-    text-align: center;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    font-family: 'Sprintura', sans-serif;
-    border: 2px solid #000;
-    margin: 20px auto;
-    max-width: 80%;
+  color: black;
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  font-family: "Sprintura", sans-serif;
+  border: 2px solid #000;
+  margin: 20px auto;
+  max-width: 80%;
 }
 
 .fashion-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    cursor: pointer;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .fashion-item p {
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: 600;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .fashion-item a {
-    color: black; /* Make link text black for better readability */
-    text-decoration: none;
+  color: black; /* Make link text black for better readability */
+  text-decoration: none;
 }
 
 .fashion-item:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Pop-up Modal */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    
-    animation: fadeIn 0.5s; /* Add fade-in animation */
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  animation: fadeIn 0.5s; /* Add fade-in animation */
 }
 
 @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-content {
-    position: relative;
-    background: url('pictures/gray-stone-texture.jpg') center center;
-    margin: auto;
-    padding: 20px;
-    border: 2px solid #000000;
-    border-radius: 15px;    
-    width: 80%; /* Make the modal smaller */
-    max-width: 80%;
-    height: 70vh; /* Adjust height */
-    max-height: 70vh; /* Ensure it doesn't exceed viewport height */
-    overflow: hidden; /* Hide overflow to prevent scrollbars */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    top: 15vh; /* Adjust position below the navbar */
+  position: relative;
+  background: url("pictures/gray-stone-texture.jpg") center center;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #000000;
+  border-radius: 15px;
+  width: 80%; /* Make the modal smaller */
+  max-width: 80%;
+  height: 70vh; /* Adjust height */
+  max-height: 70vh; /* Ensure it doesn't exceed viewport height */
+  overflow: hidden; /* Hide overflow to prevent scrollbars */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  top: 15vh; /* Adjust position below the navbar */
 }
 
 .modal-content iframe {
-    width: 100%;
-    height: 100%;
-    border: 15px;
-    border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border: 15px;
+  border-radius: 20px;
 }
 
 .close {
-    color: black;
-    float: right;
-    font-size: 50px;
-    font-weight: bold;
+  color: black;
+  float: right;
+  font-size: 50px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        text-align: center;
-        height: auto;
-        padding: 10px;
-    }
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+    padding: 10px;
+  }
 
-    .navbar .title {
-        margin: 10px 0;
-    }
+  .navbar .title {
+    margin: 10px 0;
+  }
 
-    .navbar .title img {
-        max-width: 200px;
-    }
+  .navbar .title img {
+    max-width: 200px;
+  }
 
-    .nav-links {
-        flex-direction: column;
-        gap: 5px;
-        font-size: 24px;
-        padding: 0;
-    }
+  .nav-links {
+    flex-direction: column;
+    gap: 5px;
+    font-size: 24px;
+    padding: 0;
+  }
 
-    .search-container {
-        width: 90%;
-        margin: 10px auto;
-    }
+  .search-container {
+    width: 90%;
+    margin: 10px auto;
+  }
 
-    .fashion-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 15px;
-    }
+  .fashion-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
 
-    .fashion-item {
-        margin: 0 auto;
-        max-width: 90%;
-    }
+  .fashion-item {
+    margin: 0 auto;
+    max-width: 90%;
+  }
 
-    .fashion-item img {
-        max-height: 300px;
-        object-fit: contain;
-    }
+  .fashion-item img {
+    max-height: 300px;
+    object-fit: contain;
+  }
 
-    h1 {
-        font-size: 24px;
-        margin: 40px auto 0 auto;
-    }
+  h1 {
+    font-size: 24px;
+    margin: 40px auto 0 auto;
+  }
 
-    .modal-content {
-        width: 95%;
-        height: 80vh;
-    }
+  .modal-content {
+    width: 95%;
+    height: 80vh;
+  }
 
-    .autocomplete-list {
-        max-width: 90%;
-        margin: 0 auto;
-    }
+  .autocomplete-list {
+    max-width: 90%;
+    margin: 0 auto;
+  }
 
-    .no-results {
-        width: 90%;
-        margin: 0 auto;
-        font-size: 20px;
-    }
+  .no-results {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 20px;
+  }
 }
 
 /* Small phones */
 @media (max-width: 480px) {
-    .nav-links {
-        font-size: 20px;
-    }
+  .nav-links {
+    font-size: 20px;
+  }
 
-    .fashion-item {
-        padding: 10px;
-    }
+  .fashion-item {
+    padding: 10px;
+  }
 
-    .item-info h3 {
-        font-size: 16px;
-    }
+  .item-info h3 {
+    font-size: 16px;
+  }
 
-    .item-info p {
-        font-size: 14px;
-    }
+  .item-info p {
+    font-size: 14px;
+  }
 
-    .item-link {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
+  .item-link {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
 }
 
 .shoe-item img {
-    width: 150px;
-    height: auto;
-    cursor: pointer;
+  width: 150px;
+  height: auto;
+  cursor: pointer;
 }
 
 .item-info {
-    padding: 15px;
-    border-radius: 0 0 10px 10px;
-    margin-top: -5px;
+  padding: 15px;
+  border-radius: 0 0 10px 10px;
+  margin-top: -5px;
 }
 
 .item-info h3 {
-    margin: 0 0 10px 0;
-    font-size: 18px;
-    color: #000;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #000;
 }
 
 .item-info p {
-    margin: 5px 0;
-    color: #000;
+  margin: 5px 0;
+  color: #000;
 }
 
 .item-link {
-    display: inline-block;
-    background: white;
-    color: black !important;
-    padding: 8px 15px;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: transform 0.3s ease;
+  display: inline-block;
+  background: white;
+  color: black !important;
+  padding: 8px 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: transform 0.3s ease;
 }
 
 .item-link:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 /* Search Bar and Autocomplete */
 .search-container {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    margin: 10px auto;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 10px auto;
 }
 
 #searchInput {
-    width: 100%;
-    padding: 12px 20px;
-    border: 2px solid #000;
-    border-radius: 15px;
-    background: url('pictures/gray-stone-texture.jpg') center center;
-    background-size: cover;
-    font-family: 'Sprintura', sans-serif;
-    font-size: 20px;
-    color: black;
-    box-sizing: border-box; 
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  background: url("pictures/gray-stone-texture.jpg") center center;
+  background-size: cover;
+  font-family: "Sprintura", sans-serif;
+  font-size: 20px;
+  color: black;
+  box-sizing: border-box;
 }
 
 #searchInput::placeholder {
-    color: black;
-    font-family: 'Sprintura', sans-serif;
+  color: black;
+  font-family: "Sprintura", sans-serif;
 }
 
 #searchInput:focus {
-    outline: none;
-    border-bottom: none;
-    border: 2px solid #000;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  outline: none;
+  border-bottom: none;
+  border: 2px solid #000;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Hide items that don't match search */
 .fashion-item.hidden {
-    display: none;
+  display: none;
 }
 
 .autocomplete-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: url('pictures/gray-stone-texture.jpg') center center;
-    background-size: cover;
-    margin-top: 0; /* Remove the gap */
-    border-radius: 0 0 15px 15px;
-    padding: 0;
-    border: 2px solid #000;
-    border-top: none;
-    border-bottom: none;
-    list-style: none;
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 100%;  /* Match parent width */
-    box-sizing: border-box;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: url("pictures/gray-stone-texture.jpg") center center;
+  background-size: cover;
+  margin-top: 0; /* Remove the gap */
+  border-radius: 0 0 15px 15px;
+  padding: 0;
+  border: 2px solid #000;
+  border-top: none;
+  border-bottom: none;
+  list-style: none;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%; /* Match parent width */
+  box-sizing: border-box;
 }
 
 .autocomplete-list li {
-    padding: 12px 20px;
-    cursor: pointer;
-    color: black;
-    font-family: 'Sprintura', sans-serif;
-    transition: background-color 0.2s ease;
+  padding: 12px 20px;
+  cursor: pointer;
+  color: black;
+  font-family: "Sprintura", sans-serif;
+  transition: background-color 0.2s ease;
 }
 
 .autocomplete-list li:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 20px;
-    font-size: 24px;
-    color: black;
-    font-family: 'Sprintura', sans-serif;
-    background: url('pictures/gray-stone-texture.jpg') center center;
-    background-size: cover;
-    border-radius: 15px;
-    border: 2px solid #000;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
+  color: black;
+  font-family: "Sprintura", sans-serif;
+  background: url("pictures/gray-stone-texture.jpg") center center;
+  background-size: cover;
+  border-radius: 15px;
+  border: 2px solid #000;
 }
-

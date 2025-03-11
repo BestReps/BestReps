@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BestReps</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="loadData.js" defer></script> 
-    <link rel="icon" type="image/x-icon" href="pictures/favicon.png">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8472164688173420"
-     crossorigin="anonymous"></script>
-</head>
-<body>
-
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="loadData.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="pictures/favicon.png" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8472164688173420"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <a href="index.html" class="title">
-            <img src="/pictures/logoW.png" alt="Logo">
+      <a href="index.html" class="title">
+        <img src="/pictures/logoW.png" alt="Logo" />
+      </a>
 
-        </a>
-        
-        <!-- Add search bar -->
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search products...">
-        </div>
-        
-        <ul class="nav-links">
-            <li><a href="hoodies.html">Hoodies</a></li>
-            <li><a href="shoes.html">Shoes</a></li>
-            <li><a href="shirts.html">Shirts</a></li>
-            <li><a href="pants.html">Pants</a></li>
-            <li><a href="other.html">Other</a></li>
-        </ul>
+      <!-- Add search bar -->
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products..." />
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="hoodies.html">Hoodies</a></li>
+        <li><a href="shoes.html">Shoes</a></li>
+        <li><a href="shirts.html">Shirts</a></li>
+        <li><a href="pants.html">Pants</a></li>
+        <li><a href="other.html">Other</a></li>
+      </ul>
     </nav>
     <h1>Hot right now!</h1>
     <!-- Fashion Container -->
     <section class="fashion-container" id="fashion-container">
-        <!-- Items will be loaded here by loadData.js -->
+      <!-- Items will be loaded here by loadData.js -->
     </section>
-    
 
     <!-- Pop-up -->
     <div id="popupModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <iframe id="popupFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <iframe
+          id="popupFrame"
+          src=""
+          style="width: 100%; height: 100%; border: none"
+        ></iframe>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
