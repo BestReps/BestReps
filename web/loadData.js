@@ -5,70 +5,10 @@ import { openModal, closeModal } from "./modalHandler.js";
 import { displayProducts } from "./productDisplay.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
-  // GSAP ScrollTrigger animation
+  // Initialize GSAP ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
 
-  const logoContainer = document.querySelector(".navbar .title");
-  const logo = logoContainer.querySelector("img");
-  let lastScrollY = window.scrollY;
-  let isHidden = false; // Track visibility state
-
-  // Initial state
-  logo.style.width = "600px";
-  logoContainer.style.visibility = "visible";
-  logoContainer.style.opacity = "1";
-
-  // Handle scroll events
-  window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
-    const threshold = 100; // Number of pixels from top where logo stays visible
-
-    // Always show logo near top of page or scrolling up
-    if (currentScrollY <= threshold || currentScrollY < lastScrollY) {
-      isHidden = false;
-      gsap.to(logo, {
-        width: 600,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-
-      // Only change background color, not opacity
-      gsap.to(logoContainer, {
-        backgroundColor:
-          currentScrollY <= 0 ? "transparent" : "rgba(0, 0, 0, 0.8)",
-        duration: 0.3,
-        ease: "power2.out",
-        onStart: () => {
-          logoContainer.style.visibility = "visible";
-          // Ensure logo stays visible
-          logo.style.opacity = 1;
-        },
-      });
-    }
-    // Scrolling down and past threshold
-    else if (currentScrollY > lastScrollY && !isHidden) {
-      isHidden = true;
-      gsap.to(logo, {
-        width: 0,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-
-      // Only hide the background
-      gsap.to(logoContainer, {
-        backgroundColor: "transparent",
-        duration: 0.3,
-        ease: "power2.out",
-        onComplete: () => {
-          logoContainer.style.visibility = "hidden";
-        },
-      });
-    }
-
-    lastScrollY = currentScrollY;
-  });
-
-  // Initialize the rest of your functions directly as needed
+  // Initialize scroll animation
   initScrollAnimation();
 
   const searchInput = document.getElementById("searchInput");
@@ -77,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   try {
     const data = await fetchProductData();
-    const container = document.getElementById("fashion-container");
     setupSearchAndAutocomplete(searchInput, data, staticProducts);
 
     if (isHomePage) {
