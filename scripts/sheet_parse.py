@@ -1,28 +1,29 @@
 import json
 from bs4 import BeautifulSoup
 from collections import defaultdict
-from urllib.parse import urlparse, parse_qs, urlencode
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
-# Function to modify affiliate links
+# Function to modify the 'ref' parameter in the affiliate link
 def modify_affiliate_link(original_link):
     # Parse the original link
     parsed_url = urlparse(original_link)
     query_params = parse_qs(parsed_url.query)
     
-    # Extract necessary parameters
-    shop_type = query_params.get("shop_type", [None])[0]
-    product_id = query_params.get("id", [None])[0]
+    # Update the 'ref' parameter with your affiliate reference
+    query_params["ref"] = ["2984019"]  # Your affiliate reference
     
-    if not shop_type or not product_id:
-        return original_link  # Return the original link if required parameters are missing
+    # Rebuild the query string
+    new_query = urlencode(query_params, doseq=True)
     
-    # Construct the new affiliate link
-    new_query_params = {
-        "shop_type": shop_type,
-        "id": product_id,
-        "ref": "2984019"  # Your affiliate reference
-    }
-    new_link = f"https://cnfans.com/product/?{urlencode(new_query_params)}"
+    # Reconstruct the URL with the updated query string
+    new_link = urlunparse((
+        parsed_url.scheme,  # Scheme (e.g., 'https')
+        parsed_url.netloc,   # Network location (e.g., 'cnfans.com')
+        parsed_url.path,     # Path (e.g., '/product/')
+        parsed_url.params,   # Parameters (usually empty)
+        new_query,           # Updated query string
+        parsed_url.fragment  # Fragment (e.g., '#section')
+    ))
     
     return new_link
 
@@ -51,7 +52,7 @@ def parse_html_file(file_path):
                 link_tag = cells[2].find("a")  # Product link (index 2)
                 original_link = link_tag["href"] if link_tag else ""
                 
-                # Modify the affiliate link
+                # Modify the affiliate link (only update the 'ref' parameter)
                 modified_link = modify_affiliate_link(original_link)
                 
                 # Add the product data to the list
