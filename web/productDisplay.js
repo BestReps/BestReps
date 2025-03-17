@@ -16,7 +16,7 @@ export function displayProducts(products, hideMissingImages) {
 
     if (image_url) {
       const img = document.createElement("img");
-      img.alt = "Fashion item";
+      img.alt = `${name} - High Quality Replica ${item.category}`; // SEO-friendly alt text
       img.onclick = () => openModal(link);
       img.src = image_url;
 
