@@ -1,6 +1,30 @@
 import json
 from bs4 import BeautifulSoup
 from collections import defaultdict
+from urllib.parse import urlparse, parse_qs, urlencode
+
+# Function to modify affiliate links
+def modify_affiliate_link(original_link):
+    # Parse the original link
+    parsed_url = urlparse(original_link)
+    query_params = parse_qs(parsed_url.query)
+    
+    # Extract necessary parameters
+    shop_type = query_params.get("shop_type", [None])[0]
+    product_id = query_params.get("id", [None])[0]
+    
+    if not shop_type or not product_id:
+        return original_link  # Return the original link if required parameters are missing
+    
+    # Construct the new affiliate link
+    new_query_params = {
+        "shop_type": shop_type,
+        "id": product_id,
+        "ref": "2984019"  # Your affiliate reference
+    }
+    new_link = f"https://cnfans.com/product/?{urlencode(new_query_params)}"
+    
+    return new_link
 
 # Step 1: Parse a single HTML file
 def parse_html_file(file_path):
@@ -25,14 +49,17 @@ def parse_html_file(file_path):
                 image_div = cells[4].find("div")  # Find the <div> containing the image
                 image_url = image_div.find("img")["src"] if image_div and image_div.find("img") else ""
                 link_tag = cells[2].find("a")  # Product link (index 2)
-                link = link_tag["href"] if link_tag else ""
+                original_link = link_tag["href"] if link_tag else ""
+                
+                # Modify the affiliate link
+                modified_link = modify_affiliate_link(original_link)
                 
                 # Add the product data to the list
                 products.append({
                     "name": name,
                     "price_usd": price_usd,
                     "image_url": image_url,
-                    "link": link
+                    "link": modified_link  # Use the modified link
                 })
         
         return products
@@ -102,8 +129,6 @@ def categorize_data(data, categories):
             category = "shoes"
         elif "jordan" in name and "hoodie" in name:
             category = "hoodies"
-        elif "essentials" in name and "beanies" in name:
-            category = "other"
         elif "yeezy" in name and "shirt" in name:
             category = "shirts"
         elif "nike" in name and "pants" in name:
