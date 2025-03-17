@@ -5,7 +5,7 @@
   font-style: normal;
 }
 
-/* General Styles */
+/* Critical CSS - Keep at top */
 body {
   font-family: "Sprintura", sans-serif;
   background: url("pictures/vertical-grey-scale-shot-black-surface.jpg")
@@ -266,7 +266,7 @@ h1 {
   cursor: pointer;
 }
 
-/* Mobile Responsive */
+/* Non-critical CSS - Move to separate file */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;

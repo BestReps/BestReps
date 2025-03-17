@@ -1,0 +1,25 @@
+/* Critical path CSS - only styles needed for initial render */
+body {
+  font-family: "Sprintura", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 30px;
+  margin-top: 130px;
+}
+
+.navbar .title img {
+  width: 600px;
+  height: auto;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+}

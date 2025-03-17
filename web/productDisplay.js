@@ -11,14 +11,29 @@ export function displayProducts(products, hideMissingImages) {
   products.forEach((item) => {
     const { link, image_url, name, price_usd } = item;
 
+    // Convert image URL to WebP
+    const webpUrl = image_url.replace(/\.(jpg|jpeg|png)/, ".webp");
+
     const div = document.createElement("div");
     div.className = "fashion-item";
 
     if (image_url) {
       const img = document.createElement("img");
       img.alt = `${name} - High Quality Replica ${item.category}`; // SEO-friendly alt text
+      img.width = "300"; // Standard product image width
+      img.height = "300"; // Standard product image height
+      img.loading = "lazy"; // Add lazy loading
       img.onclick = () => openModal(link);
-      img.src = image_url;
+
+      // Add picture element for WebP support
+      const picture = document.createElement("picture");
+      const sourceWebP = document.createElement("source");
+      sourceWebP.srcset = webpUrl;
+      sourceWebP.type = "image/webp";
+
+      img.src = image_url; // Fallback image
+      picture.appendChild(sourceWebP);
+      picture.appendChild(img);
 
       img.onerror = () => {
         console.log(`⚠️ Suppressed 404 for: ${image_url}`);
@@ -44,7 +59,7 @@ export function displayProducts(products, hideMissingImages) {
                     <a href="${link}" target="_blank" class="item-link">View Product</a>
                 </div>
             `;
-      div.prepend(img);
+      div.prepend(picture);
     } else if (!hideMissingImages) {
       div.innerHTML = `
                 <div class="image-placeholder">Image not available</div>

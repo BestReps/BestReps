@@ -12,11 +12,25 @@
       name="keywords"
       content="replica pants, designer pants, streetwear pants, fashion replicas"
     />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="scrollAnimation.js" type="module"></script>
-    <script src="productData.js" type="module"></script>
+    <link rel="preload" href="/pictures/logoW.png" as="image" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="stylesheet" href="critical.css" />
+    <link
+      rel="stylesheet"
+      href="style.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+    ></script>
+    <link rel="modulepreload" href="scrollAnimation.js" />
+    <link rel="modulepreload" href="productData.js" />
     <script src="searchHandler.js" type="module"></script>
     <script src="modalHandler.js" type="module"></script>
     <script src="productDisplay.js" type="module"></script>
