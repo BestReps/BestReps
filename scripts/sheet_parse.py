@@ -178,9 +178,10 @@ def save_to_json(data, output_file):
 def main():
     # List of HTML files to parse
     file_paths = [
-        r"../web/sheets/spreadsheet_1.html",  # First file
-        r"../web/sheets/spreadsheet_2.html",   # Second file
-        r"../web/sheets/spreadsheet_3.html"     # Third file
+        r"../web/sheets/spreadsheet_1.html",  
+        r"../web/sheets/spreadsheet_2.html",  
+        r"../web/sheets/spreadsheet_3.html",     
+        r"../web/sheets/spreadsheet_4.html"     
     ]
     
     # Parse all HTML files and combine the data
