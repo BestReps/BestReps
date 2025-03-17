@@ -181,7 +181,8 @@ def main():
         r"../web/sheets/spreadsheet_1.html",  
         r"../web/sheets/spreadsheet_2.html",  
         r"../web/sheets/spreadsheet_3.html",     
-        r"../web/sheets/spreadsheet_4.html"     
+        r"../web/sheets/spreadsheet_4.html",   
+        r"../web/sheets/spreadsheet_5.html"    
     ]
     
     # Parse all HTML files and combine the data
