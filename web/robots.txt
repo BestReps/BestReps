@@ -8,3 +8,4 @@ Allow: /hoodies.html
 Allow: /shirts.html
 Allow: /pants.html
 Allow: /other.html
+Allow: /perfume.html
