@@ -9,8 +9,16 @@ def modify_affiliate_link(original_link):
     parsed_url = urlparse(original_link)
     query_params = parse_qs(parsed_url.query)
     
-    # Update the 'ref' parameter with your affiliate reference
-    query_params["ref"] = ["2984019"]  # Your affiliate reference
+    # Determine the domain and set the appropriate 'ref' value
+    if "cnfans.com" in parsed_url.netloc:
+        # Use the cnfans affiliate reference
+        query_params["ref"] = ["2984019"]  # Your cnfans affiliate reference
+    elif "orientdig.com" in parsed_url.netloc:
+        # Use the orientdig affiliate reference
+        query_params["ref"] = ["100151728"]  # Your orientdig affiliate reference
+    else:
+        # Default to cnfans if the domain is not recognized
+        query_params["ref"] = ["2984019"]  # Default affiliate reference
     
     # Rebuild the query string
     new_query = urlencode(query_params, doseq=True)
@@ -40,6 +48,9 @@ def parse_html_file(file_path):
             print(f"No table found in the HTML file: {file_path}")
             return products
         
+        # Check if the file is perfume.html
+        is_perfume_file = "perfume.html" in file_path
+        
         # Iterate through rows (skip the header row)
         for row in table.find_all("tr")[1:]:
             cells = row.find_all(["th", "td"])  # Include both <th> and <td> elements
@@ -56,12 +67,18 @@ def parse_html_file(file_path):
                 modified_link = modify_affiliate_link(original_link)
                 
                 # Add the product data to the list
-                products.append({
+                product = {
                     "name": name,
                     "price_usd": price_usd,
                     "image_url": image_url,
                     "link": modified_link  # Use the modified link
-                })
+                }
+                
+                # If the file is perfume.html, set the category to "perfume"
+                if is_perfume_file:
+                    product["category"] = "perfume"
+                
+                products.append(product)
         
         return products
     
@@ -106,7 +123,7 @@ def define_categories():
             "uniqlo", "zara", "h&m", "calvin klein", "hugo boss", "gucci", "versace", "balenciaga",
             "prada", "fear of god", "essentials", "yeezy", "tommy hilfiger", "ralph lauren",
             "lacoste", "burberry", "armani"
-        ]
+        ] 
     }
     
     print("\nCategories and keywords:")
@@ -121,6 +138,13 @@ def categorize_data(data, categories):
     processed_count = 0  # Counter for processed items
     for item in data:
         name = item["name"].lower()
+        
+        # If the category is already set (e.g., for perfume.html), skip categorization
+        if "category" in item:
+            categorized_data.append(item)
+            processed_count += 1
+            continue
+        
         category = "other"  # Default category
 
         # Special rules for combinations
@@ -182,7 +206,8 @@ def main():
         r"../web/sheets/spreadsheet_2.html",  
         r"../web/sheets/spreadsheet_3.html",     
         r"../web/sheets/spreadsheet_4.html",   
-        r"../web/sheets/spreadsheet_5.html"    
+        r"../web/sheets/spreadsheet_5.html",
+        r"../web/sheets/perfume.html"      
     ]
     
     # Parse all HTML files and combine the data
