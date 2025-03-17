@@ -64,7 +64,7 @@ def define_categories():
             "ralph lauren", "tommy hilfiger", "lacoste", "versace", "t shirt", "shirt", "polo",
             "henley", "button down", "oxford", "flannel", "champion", "supreme", "stone island",
             "off-white", "palace", "stussy", "carhartt", "uniqlo", "zara", "h&m", "calvin klein",
-            "hugo boss", "burberry", "armani"
+            "hugo boss", "burberry", "armani", "jersey"
         ],
         "pants": [
             "levi's", "wrangler", "diesel", "calvin klein", "hugo boss", "tommy hilfiger",
