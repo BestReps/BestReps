@@ -102,6 +102,8 @@ def categorize_data(data, categories):
             category = "shoes"
         elif "jordan" in name and "hoodie" in name:
             category = "hoodies"
+        elif "essentials" in name and "beanies" in name:
+            category = "other"
         elif "yeezy" in name and "shirt" in name:
             category = "shirts"
         elif "nike" in name and "pants" in name:
