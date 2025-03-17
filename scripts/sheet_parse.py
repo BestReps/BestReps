@@ -10,20 +10,21 @@ def parse_html_file(file_path):
         
         # Extract data from the HTML table
         products = []
-        table = soup.find("table", class_="waffle")  # Find the table
+        table = soup.find("table")  # Find the table (no specific class)
         if not table:
             print(f"No table found in the HTML file: {file_path}")
             return products
         
         # Iterate through rows (skip the header row)
         for row in table.find_all("tr")[1:]:
-            cells = row.find_all("td")
-            if len(cells) >= 10:  # Ensure there are enough cells
-                name = cells[0].text.strip()  # Product name
-                price_usd = cells[3].text.strip()  # Price in USD
-                image_tag = cells[4].find("img")  # Image URL
-                image_url = image_tag["src"] if image_tag else ""
-                link_tag = cells[1].find("a")  # Product link
+            cells = row.find_all(["th", "td"])  # Include both <th> and <td> elements
+            if len(cells) >= 5:  # Ensure there are enough cells (adjust based on your structure)
+                # Extract data from cells
+                name = cells[1].text.strip()  # Product name (index 1 because of <th>)
+                price_usd = cells[3].text.strip()  # Price in USD (index 3)
+                image_div = cells[4].find("div")  # Find the <div> containing the image
+                image_url = image_div.find("img")["src"] if image_div and image_div.find("img") else ""
+                link_tag = cells[2].find("a")  # Product link (index 2)
                 link = link_tag["href"] if link_tag else ""
                 
                 # Add the product data to the list
@@ -127,8 +128,20 @@ def save_to_json(data, output_file):
         # Filter out products with empty image_url
         filtered_data = [item for item in data if item.get("image_url")]
         
+        # Remove duplicates based on the 'name' field
+        unique_data = []
+        seen_names = set()
+        
+        for item in filtered_data:
+            name = item["name"]
+            if name not in seen_names:
+                unique_data.append(item)
+                seen_names.add(name)
+        
+        # Save the unique data to the JSON file
         with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(filtered_data, f, ensure_ascii=False, indent=2)
+            json.dump(unique_data, f, ensure_ascii=False, indent=2)
+        
         print(f"Data saved to {output_file}")
     except Exception as e:
         print(f"An error occurred while saving the JSON file: {e}")
@@ -137,8 +150,9 @@ def save_to_json(data, output_file):
 def main():
     # List of HTML files to parse
     file_paths = [
-        r"../web/sheets/spreadsheet 1.html",  # First file
-        r"../web/sheets/spreadsheet 2.html"   # Second file
+        r"../web/sheets/spreadsheet_1.html",  # First file
+        r"../web/sheets/spreadsheet_2.html",   # Second file
+        r"../web/sheets/spreadsheet_3.html"     # Third file
     ]
     
     # Parse all HTML files and combine the data
