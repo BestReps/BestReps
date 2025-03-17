@@ -124,8 +124,11 @@ def categorize_data(data, categories):
 # Step 5: Save the parsed data to a JSON file
 def save_to_json(data, output_file):
     try:
+        # Filter out products with empty image_url
+        filtered_data = [item for item in data if item.get("image_url")]
+        
         with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+            json.dump(filtered_data, f, ensure_ascii=False, indent=2)
         print(f"Data saved to {output_file}")
     except Exception as e:
         print(f"An error occurred while saving the JSON file: {e}")
